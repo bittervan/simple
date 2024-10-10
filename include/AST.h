@@ -106,7 +106,7 @@ public:
 
   VariableVector::const_iterator end() { return variables.end(); }
 
-  Expr *getExpr() { return expr; }
+  Expr *GetExpr() { return expr; }
 
   virtual void Accept(ASTVisitor &visitor) override { visitor.Visit(*this); }
 
@@ -145,8 +145,8 @@ public:
 
     llvm::outs() << "\n";
 
-    if (withDecl.getExpr()) {
-      withDecl.getExpr()->Accept(*this);
+    if (withDecl.GetExpr()) {
+      withDecl.GetExpr()->Accept(*this);
     }
   }
 };

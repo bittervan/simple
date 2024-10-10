@@ -4,6 +4,7 @@
 
 #include <Lexer.h>
 #include <Parser.h>
+#include <SemanticAnalyzer.h>
 
 static llvm::cl::opt<std::string> input(llvm::cl::Positional,
                                         llvm::cl::desc("<input expression>"),
@@ -25,8 +26,11 @@ int main(int argc, const char **argv) {
     return 1;
   }
 
-  ASTPrinter printer;
-  tree->Accept(printer);
+  SemanticAnalyzer semanticAnalyzer;
+  if (semanticAnalyzer.Analyze(tree)) {
+    llvm::errs() << "Semantic errors occured\n";
+    return 1;
+  }
 
   return 0;
 }
