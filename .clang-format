@@ -1,0 +1,24 @@
+---
+# https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+
+BasedOnStyle:   LLVM
+Language:        Cpp
+
+# this style configuration is based on google style configuration.
+# The following configuration is different from the basic configuration.
+
+# 缩进宽度
+IndentWidth:     4
+
+# 访问权限说明符(public/private等)的偏移
+AccessModifierOffset: -4
+
+# 语言标准: Cpp03, Cpp11, Auto
+Standard: Auto
+
+# # tab宽度
+TabWidth: 4
+
+# # 使用tab字符: Never, ForIndentation, ForContinuationAndIndentation, Always
+UseTab: Never
+---

@@ -4,8 +4,8 @@
 
 class SemanticAnalyzer {
 public:
-  SemanticAnalyzer() = default;
-  ~SemanticAnalyzer() = default;
+    SemanticAnalyzer() = default;
+    ~SemanticAnalyzer() = default;
 
-  bool Analyze(AST *tree);
+    bool Analyze(AST *tree);
 };

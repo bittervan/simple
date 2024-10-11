@@ -1,83 +1,83 @@
 #include <Lexer.h>
 
 void Lexer::GetNext(Token &token) {
-  while (*bufferPtr && std::isspace(*bufferPtr)) {
-    ++bufferPtr;
-  }
-
-  if (!*bufferPtr) {
-    token.SetType(Token::kEOI);
-
-    return;
-  }
-
-  if (std::isalpha(*bufferPtr)) {
-    const char *end = bufferPtr + 1;
-    while (std::isalpha(*end)) {
-      ++end;
+    while (*bufferPtr && std::isspace(*bufferPtr)) {
+        ++bufferPtr;
     }
 
-    llvm::StringRef name(bufferPtr, end - bufferPtr);
-    Token::TokenType type =
-        (name == "with" ? Token::kKeywordWith : Token::kIdent);
-    InitializeToken(token, end, type);
+    if (!*bufferPtr) {
+        token.SetType(Token::kEOI);
 
-    return;
-  } else if (std::isdigit(*bufferPtr)) {
-    const char *end = bufferPtr + 1;
-    while (std::isdigit(*end)) {
-      ++end;
+        return;
     }
 
-    InitializeToken(token, end, Token::kNumber);
+    if (std::isalpha(*bufferPtr)) {
+        const char *end = bufferPtr + 1;
+        while (std::isalpha(*end)) {
+            ++end;
+        }
 
-    return;
-  } else {
-    switch (*bufferPtr) {
-    case '+':
-      InitializeToken(token, bufferPtr + 1, Token::kPlus);
-      break;
+        llvm::StringRef name(bufferPtr, end - bufferPtr);
+        Token::TokenType type =
+            (name == "with" ? Token::kKeywordWith : Token::kIdent);
+        InitializeToken(token, end, type);
 
-    case '-':
-      InitializeToken(token, bufferPtr + 1, Token::kMinus);
-      break;
+        return;
+    } else if (std::isdigit(*bufferPtr)) {
+        const char *end = bufferPtr + 1;
+        while (std::isdigit(*end)) {
+            ++end;
+        }
 
-    case '*':
-      InitializeToken(token, bufferPtr + 1, Token::kStar);
-      break;
+        InitializeToken(token, end, Token::kNumber);
 
-    case '/':
-      InitializeToken(token, bufferPtr + 1, Token::kSlash);
-      break;
+        return;
+    } else {
+        switch (*bufferPtr) {
+        case '+':
+            InitializeToken(token, bufferPtr + 1, Token::kPlus);
+            break;
 
-    case '(':
-      InitializeToken(token, bufferPtr + 1, Token::kLeftParen);
-      break;
+        case '-':
+            InitializeToken(token, bufferPtr + 1, Token::kMinus);
+            break;
 
-    case ')':
-      InitializeToken(token, bufferPtr + 1, Token::kRightParen);
-      break;
+        case '*':
+            InitializeToken(token, bufferPtr + 1, Token::kStar);
+            break;
 
-    case ':':
-      InitializeToken(token, bufferPtr + 1, Token::kColon);
-      break;
+        case '/':
+            InitializeToken(token, bufferPtr + 1, Token::kSlash);
+            break;
 
-    case ',':
-      InitializeToken(token, bufferPtr + 1, Token::kComma);
-      break;
+        case '(':
+            InitializeToken(token, bufferPtr + 1, Token::kLeftParen);
+            break;
 
-    default:
-      InitializeToken(token, bufferPtr + 1, Token::kUnknown);
+        case ')':
+            InitializeToken(token, bufferPtr + 1, Token::kRightParen);
+            break;
+
+        case ':':
+            InitializeToken(token, bufferPtr + 1, Token::kColon);
+            break;
+
+        case ',':
+            InitializeToken(token, bufferPtr + 1, Token::kComma);
+            break;
+
+        default:
+            InitializeToken(token, bufferPtr + 1, Token::kUnknown);
+        }
+
+        return;
     }
-
-    return;
-  }
 }
 
 void Lexer::InitializeToken(Token &token, const char *tokenEnd,
                             Token::TokenType type) {
-  token.SetType(type);
-  token.SetText(llvm::StringRef(bufferPtr, tokenEnd - bufferPtr));
+    token.SetType(type);
+    token.SetText(llvm::StringRef(bufferPtr, tokenEnd - bufferPtr));
 
-  bufferPtr = tokenEnd;
+    bufferPtr = tokenEnd;
 }
