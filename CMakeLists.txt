@@ -16,3 +16,6 @@ file(GLOB SOURCES "./src/*.cpp")
 add_executable(simple ${SOURCES})
 
 target_link_libraries(simple LLVM)
+
+file(GLOB RT_SOURCES "./rt/*.cpp")
+add_library(simple_lib SHARED ${SOURCES})
