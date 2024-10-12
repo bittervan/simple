@@ -4,6 +4,7 @@
 
 #include <Lexer.h>
 #include <Parser.h>
+#include <IRGenerator.h>
 #include <SemanticAnalyzer.h>
 
 static llvm::cl::opt<std::string> input(llvm::cl::Positional,
@@ -31,6 +32,9 @@ int main(int argc, const char **argv) {
         llvm::errs() << "Semantic errors occured\n";
         return 1;
     }
+
+    IRGenerator generator;
+    generator.Generate(tree);
 
     return 0;
 }

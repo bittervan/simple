@@ -1,7 +1,7 @@
 .PHONY: config clean all
 
 all: config
-	@make -C build
+	@make -C build -j32
 
 config:
 	@mkdir -p build
