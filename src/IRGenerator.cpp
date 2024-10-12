@@ -16,7 +16,7 @@ void IRGenerator::Generate(AST *tree) {
     FunctionType *calcWriteFuncType = FunctionType::get(builder.getVoidTy(), {builder.getInt32Ty()}, false);
     Function *calcWriteFunc = Function::Create(calcWriteFuncType, Function::ExternalLinkage, "calc_write", module);
 
-    builder.CreateCall(calcWriteFunc, {builder.getInt32(42)});
+    builder.CreateCall(calcWriteFunc, {returnValue});
 
     builder.CreateRet(builder.getInt32(0));
     module.print(outs(), nullptr);
